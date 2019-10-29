@@ -18,9 +18,6 @@ public class ApiTestSample {
         List<PeopleModel> peopleObjects;
         PeopleModel testPeople = null;
 
-        peopleURI.getPeopleById(1).assertThat().contentType(ContentType.JSON).and()
-                .statusCode(HttpStatus.SC_OK).and()
-                .body("mass", equalTo("77"));
 
         peopleURI.getPeople(1).assertThat().contentType(ContentType.JSON).and()
                 .statusCode(HttpStatus.SC_OK).and().body("count", equalTo(87));
