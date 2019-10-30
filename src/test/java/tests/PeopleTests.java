@@ -15,6 +15,7 @@ class PeopleTest {
     private List<PeopleModel> peopleObjects;
     private PeopleModel testPeople = null;
 
+    /* Test Feature Branch */
     @Test
     public void checkPeopleResponseOkTest() {
         PeopleView peopleView = new PeopleView();
