@@ -42,8 +42,8 @@ public class PeopleView {
         return _apiResponse;
     }
 
-    public ValidatableResponse getPeopleById(int id) {
+    public ValidatableResponse getPeopleById(int peopleId) {
         return given().log().everything().when()
-                .get(_peopleURI + id + "/").then().log().everything();
+                .get(_peopleURI + peopleId + "/").then().log().everything();
     }
 }
