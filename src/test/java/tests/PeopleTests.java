@@ -88,14 +88,14 @@ class PeopleTests extends BaseTests{
         this.validateObjectArrayHasSize("results", 10);
     }
 
-    /*@Order(8)
+    @Order(8)
     @Test
     @DisplayName("Check if people objects in \"results\" field has mandatory fields")
     public void checkIfPeopleInResultsHasMandatoryFields(){
         this.validateObjectsInArrayHasFields("results", peopleResponseFields);
-    }*/
+    }
 
-    @Order(8)
+    @Order(9)
     @Test
     @DisplayName("Check if response is successful for specifics people")
     public void checkSpecificPeopleResponseOkTest() {
@@ -103,7 +103,7 @@ class PeopleTests extends BaseTests{
         this.validateResponseStatusOK();
     }
 
-    @Order(9)
+    @Order(10)
     @Test
     @DisplayName("Check if response format is JSON for specific people")
     public void checkSpecificPeopleResponseFormat(){

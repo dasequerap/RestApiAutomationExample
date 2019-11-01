@@ -3,11 +3,7 @@ package tests;
 import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
 import org.apache.http.HttpStatus;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
+import java.util.*;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.*;
 
@@ -58,14 +54,16 @@ public class BaseTests {
         this.getCurrentResponse().assertThat().body(fieldName, hasSize(Size));
     }
 
-    /*protected void validateObjectsInArrayHasFields(String fieldName, ArrayList<String> fieldList){
+    protected void validateObjectsInArrayHasFields(String fieldName, ArrayList<String> fieldList){
         List<Object> objectsArray = this.getCurrentResponse().extract().jsonPath().getList(fieldName);
-        for(int objectIndex = 0; objectIndex <= objectsArray.size(); objectIndex++){
-            for (int compareIndex = 0; compareIndex < fieldList.size(); compareIndex++) {
-                objectsArray.get(objectIndex);
-                }
-            }
+        for(int objectIndex = 0; objectIndex < objectsArray.size(); objectIndex++){
+             for (int compareIndex = 0; compareIndex < fieldList.size(); compareIndex++) {
+                 String peopleEntry = objectsArray.get(objectIndex).toString();
+                 String objectFieldName = fieldList.get(compareIndex).toString();
+                 assertThat(peopleEntry, containsString(objectFieldName));
+                 break;
+             }
         }
-    }*/
+    }
 }
 
