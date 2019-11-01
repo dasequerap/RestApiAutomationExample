@@ -2,7 +2,6 @@ package views;
 
 import helpers.StarWarsApiURIs;
 import io.restassured.response.ValidatableResponse;
-
 import static io.restassured.RestAssured.given;
 
 public class PeopleView {
@@ -32,11 +31,10 @@ public class PeopleView {
         _currentPage = page;
 
         if (_currentPage > 1) {
-            _peopleURI += "?page=" + page;
             this.setCurrentPage(page);
         }
-
-        _apiResponse = given().when().get(_peopleURI).then();
+        _apiResponse = given().queryParam("page", page).when().get(_peopleURI)
+                .then();
         _nextUrl = _apiResponse.extract().path("next");
         _peopleURI = new StarWarsApiURIs().peopleURI;
         return _apiResponse;
@@ -44,6 +42,6 @@ public class PeopleView {
 
     public ValidatableResponse getPeopleById(int peopleId) {
         return given().log().everything().when()
-                .get(_peopleURI + peopleId + "/").then().log().everything();
+                .get(_peopleURI + "{peopleId}", peopleId).then().log().everything();
     }
 }
