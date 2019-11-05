@@ -1,9 +1,11 @@
 package tests;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
 import org.apache.http.HttpStatus;
 import java.util.*;
+import org.json.*;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.*;
 
@@ -54,15 +56,9 @@ public class BaseTests {
         this.getCurrentResponse().assertThat().body(fieldName, hasSize(Size));
     }
 
-    protected void validateObjectsInArrayHasFields(String fieldName, ArrayList<String> fieldList){
-        List<Object> objectsArray = this.getCurrentResponse().extract().jsonPath().getList(fieldName);
-        for(int objectIndex = 0; objectIndex < objectsArray.size(); objectIndex++){
-             for (int compareIndex = 0; compareIndex < fieldList.size(); compareIndex++) {
-                 String peopleEntry = objectsArray.get(objectIndex).toString();
-                 String objectFieldName = fieldList.get(compareIndex).toString();
-                 assertThat(peopleEntry, containsString(objectFieldName));
-                 break;
-             }
+    protected void validateObjectsInArrayHasFields(String peopleEntry, ArrayList<String> fieldList){
+        for(int fieldIndex = 0; fieldIndex < fieldList.size(); fieldIndex++) {
+            assertThat(peopleEntry, containsString(fieldList.get(fieldIndex)));
         }
     }
 }

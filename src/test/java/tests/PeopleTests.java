@@ -7,6 +7,7 @@ import views.PeopleView;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -91,8 +92,8 @@ class PeopleTests extends BaseTests{
     @Order(8)
     @Test
     @DisplayName("Check if people objects in \"results\" field has mandatory fields")
-    public void checkIfPeopleInResultsHasMandatoryFields(){
-        this.validateObjectsInArrayHasFields("results", peopleResponseFields);
+    public void checkIfPeopleEntryInResultsHasMandatoryFields(){
+        this.validateObjectsInArrayHasFields(this.peopleView.getResults(), peopleResponseFields);
     }
 
     @Order(9)

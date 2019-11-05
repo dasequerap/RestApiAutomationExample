@@ -2,6 +2,7 @@ package views;
 
 import helpers.StarWarsApiURIs;
 import io.restassured.response.ValidatableResponse;
+
 import static io.restassured.RestAssured.given;
 
 public class PeopleView {
@@ -43,5 +44,9 @@ public class PeopleView {
     public ValidatableResponse getPeopleById(int peopleId) {
         return given().log().everything().when()
                 .get(_peopleURI + "{peopleId}", peopleId).then().log().everything();
+    }
+
+    public String getResults(){
+        return this.getPeople(this._currentPage).extract().path("results").toString();
     }
 }
