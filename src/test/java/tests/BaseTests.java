@@ -1,11 +1,9 @@
 package tests;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
 import org.apache.http.HttpStatus;
 import java.util.*;
-import org.json.*;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.*;
 
