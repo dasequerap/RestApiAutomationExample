@@ -58,7 +58,7 @@ class PeopleMultipleTests extends BaseTests{
     @Order(4)
     @Test
     @DisplayName("Check if value of \"count\" field is not null or zero")
-    public void checkCountFieldIsNotNullOrZero(){
+    public void checkCountField(){
         this.validateFieldHasNotValue("count", null);
         this.validateIntegerFieldIsGreaterThan("count", 0);
     }
@@ -66,7 +66,7 @@ class PeopleMultipleTests extends BaseTests{
     @Order(5)
     @Test
     @DisplayName("Check if value of \"results\" field is not null or zero")
-    public void checkDefaultValueOfResultsFieldIsNotNull(){
+    public void checkDefaultValueOfResultsField(){
         this.validateFieldHasNotValue("results", null);
     }
 
@@ -100,7 +100,7 @@ class PeopleMultipleTests extends BaseTests{
     @Order(9)
     @Test
     @DisplayName("Check if value of \"next\" field is not null or empty for first page")
-    public void checkDefaultValueOfNextFieldIsNotNullOrEmpty(){
+    public void checkDefaultValueOfNextFieldForFirstPage(){
         this.validateFieldHasNotValue("next", null);
         this.validateFieldHasNotValue("next", "");
     }
@@ -108,14 +108,14 @@ class PeopleMultipleTests extends BaseTests{
     @Order(10)
     @Test
     @DisplayName("Check if default value of \"previous\" field value is null first page")
-    public void checkDefaultValueOfPreviousFieldIsNull(){
-        this.validateFieldHasValue("previous", null );
+    public void checkDefaultValueOfPreviousFieldForFirstPage(){
+        this.validateFieldHasValue("previous", null);
     }
 
     @Order(11)
     @Test
     @DisplayName("Check if value of \"previous\" field is not null or empty for a page between first and last")
-    public void checkValueOfNextFieldIsNotNullOrEmptyForAPageBetweenFirstAndLast(){
+    public void checkValueOfNextFieldForAPageBetweenFirstAndLast(){
         this.setRandomPage();
         this.setCurrentResponse(peopleView.getPeople(currentPage));
         this.validateFieldHasNotValue("previous", null);
@@ -125,7 +125,7 @@ class PeopleMultipleTests extends BaseTests{
     @Order(12)
     @Test
     @DisplayName("Check if value of \"next\" field value is not null or empty for a page between first and last")
-    public void checkValueOfPreviousFieldIsNotNullOrEmptyForAPageBetweenFirstAndLast(){
+    public void checkValueOfPreviousFieldForAPageBetweenFirstAndLast(){
         this.setRandomPage();
         this.setCurrentResponse(peopleView.getPeople(currentPage));
         this.validateFieldHasNotValue("next", null);
@@ -135,7 +135,7 @@ class PeopleMultipleTests extends BaseTests{
     @Order(14)
     @Test
     @DisplayName("Check if value of \"previous\" field value is not null or empty for a page between first and last")
-    public void checkValueOfPreviousFieldIsNotNullOrEmptyForLastPage(){
+    public void checkValueOfPreviousFieldForLastPage(){
         this.setCurrentPage(this.pages + 3);
         this.setCurrentResponse(peopleView.getPeople(currentPage));
         this.validateFieldHasNotValue("previous", null);
@@ -145,7 +145,7 @@ class PeopleMultipleTests extends BaseTests{
     @Order(15)
     @Test
     @DisplayName("Check if value of \"next\" field is not null or empty for a page between first and last")
-    public void checkValueOfNextFieldIsNotNullForLastPage(){
+    public void checkValueOfNextFieldForLastPage(){
         this.setCurrentPage(this.pages + 3);
         this.setCurrentResponse(peopleView.getPeople(currentPage));
         this.validateFieldHasValue("next", null);
@@ -154,10 +154,32 @@ class PeopleMultipleTests extends BaseTests{
     @Order(16)
     @Test
     @DisplayName("Check if response for an invalid page is \"Not Found\"")
-    public void checkResponseForAnInvalidPageIsNotFound(){
+    public void checkResponseForAnInvalidPage(){
         this.setCurrentPage(this.pages + 4);
         this.setCurrentResponse(peopleView.getPeople(currentPage));
         this.validateFieldHasValue("detail", "Not found");
+    }
+
+    @Order(17)
+    @Test
+    @DisplayName("Check if URL value of \"next\" field is accessible and returns a JSON response")
+    public void checkNextFieldURLValidity(){
+        this.setRandomPage();
+        this.setCurrentResponse(peopleView.getPeople(currentPage));
+        this.setCurrentResponse(peopleView.goToNextURL());
+        this.validateResponseStatusOK();
+        this.validateContentTypeIsJson();
+    }
+
+    @Order(18)
+    @Test
+    @DisplayName("Check if URL value of \"next\" field is accessible and returns a JSON response")
+    public void checkPreviousFieldURLValidity(){
+        this.setRandomPage();
+        this.setCurrentResponse(peopleView.getPeople(currentPage));
+        this.setCurrentResponse(peopleView.goToPreviousURL());
+        this.validateResponseStatusOK();
+        this.validateContentTypeIsJson();
     }
 
 }

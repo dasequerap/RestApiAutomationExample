@@ -59,5 +59,6 @@ public class BaseTests {
             assertThat(peopleEntry, containsString(fieldList.get(fieldIndex)));
         }
     }
+
 }
 
