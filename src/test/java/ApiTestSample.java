@@ -1,18 +1,17 @@
-import io.restassured.http.ContentType;
-import io.restassured.path.json.JsonPath;
-import models.PeopleModel;
-import org.apache.http.HttpStatus;
-import views.PeopleView;
-
-import java.util.List;
-
-import static org.hamcrest.Matchers.equalTo;
-
+import java.io.IOException;
+import java.io.InputStream;
+import helpers.config.MappingReader;
 
 public class ApiTestSample {
 
-    public static void main(String[] args) {
-        PeopleView peopleURI = new PeopleView();
+    public static void main(String[] args) throws IOException {
+
+        MappingReader configReader = new MappingReader();
+        System.out.println(configReader.getRawConfig());
+        System.out.println(configReader.getPeopleURI());
+        System.out.println(configReader.getPeopleURIParams());
+        System.out.println(configReader.getPeopleURIParams().length());
+        /*PeopleView peopleURI = new PeopleView();
         String nextURL;
         JsonPath currentResponse;
         List<PeopleModel> peopleObjects;
@@ -32,6 +31,10 @@ public class ApiTestSample {
                 currentResponse = peopleURI.getPeople(peopleURI.getCurrentPage() + 1)
                         .extract().jsonPath();
             }
-        }
+        }*/
+    }
+
+    private InputStream getMappingFile(){
+        return getClass().getClassLoader().getResourceAsStream("./config/mapping.json");
     }
 }

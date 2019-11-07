@@ -1,3 +1,26 @@
 {
-  "name": "John"
+ "people":{
+  "uri":"https://swapi.co/api/people/",
+  "queryParams":[
+   "page"
+  ],
+  "fields":{
+   "name":{
+    "position":1,
+    "type":"string",
+    "mandatory":true
+   },
+   "height":{
+    "position":2,
+    "type":"string",
+    "mandatory":false
+   },
+   "films":{
+    "position":10,
+    "type":"array",
+    "array_type":"string",
+    "mandatory":true
+   }
+  }
+ }
 }
