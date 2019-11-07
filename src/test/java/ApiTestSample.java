@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.io.InputStream;
 import helpers.config.MappingReader;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 public class ApiTestSample {
 
@@ -8,9 +9,12 @@ public class ApiTestSample {
 
         MappingReader configReader = new MappingReader();
         System.out.println(configReader.getRawConfig());
-        System.out.println(configReader.getPeopleURI());
-        System.out.println(configReader.getPeopleURIParams());
-        System.out.println(configReader.getPeopleURIParams().length());
+        System.out.println(configReader.getServiceURI());
+        System.out.println(configReader.getResource(MappingReader.Resources.PEOPLE));
+        System.out.println(configReader.getConfig(MappingReader.Resources.PEOPLE));
+        System.out.println(configReader.getQueryParametersByMethod(MappingReader.Resources.PEOPLE, RequestMethod.GET));
+        System.out.println(configReader.getRequestQueryParameters(MappingReader.Resources.PEOPLE, RequestMethod.GET));
+        System.out.println(configReader.getFullResourceURI(MappingReader.Resources.PEOPLE));
         /*PeopleView peopleURI = new PeopleView();
         String nextURL;
         JsonPath currentResponse;
@@ -32,9 +36,5 @@ public class ApiTestSample {
                         .extract().jsonPath();
             }
         }*/
-    }
-
-    private InputStream getMappingFile(){
-        return getClass().getClassLoader().getResourceAsStream("./config/mapping.json");
     }
 }

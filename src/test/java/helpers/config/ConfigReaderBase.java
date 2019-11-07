@@ -20,8 +20,6 @@ public class ConfigReaderBase {
                 .getResourceAsStream(configDirectory + fileName);
     }
 
-    protected String getFileName(){ return this.fileName; }
-
     protected String getFileContents() { return this.fileContents; }
 
     protected void setFileName(String fileName){ this.fileName = fileName; }
