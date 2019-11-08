@@ -1,18 +1,9 @@
-import io.restassured.http.ContentType;
-import io.restassured.path.json.JsonPath;
-import models.PeopleModel;
-import org.apache.http.HttpStatus;
-import views.PeopleView;
 
-import java.util.List;
-
-import static org.hamcrest.Matchers.equalTo;
-
-
-public class ApiTestSample {
+class ApiTestSample {
 
     public static void main(String[] args) {
-        PeopleView peopleURI = new PeopleView();
+        System.out.println("filler");
+        /*PeopleView peopleURI = new PeopleView();
         String nextURL;
         JsonPath currentResponse;
         List<PeopleModel> peopleObjects;
@@ -32,6 +23,6 @@ public class ApiTestSample {
                 currentResponse = peopleURI.getPeople(peopleURI.getCurrentPage() + 1)
                         .extract().jsonPath();
             }
-        }
+        }*/
     }
 }
