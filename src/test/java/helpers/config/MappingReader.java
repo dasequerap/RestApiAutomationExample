@@ -1,6 +1,5 @@
 package helpers.config;
 
-import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.IOException;
@@ -8,12 +7,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 public class MappingReader extends ConfigReaderBase{
 
-    private JSONObject mappingConfig;
-    private JSONObject peopleConfig;
     public enum Resources {
         PEOPLE("people"),
         FILMS("films");
-        public String resourceName = "";
+        final String resourceName;
 
         Resources(String resourceName) {
             this.resourceName = resourceName;
@@ -23,23 +20,23 @@ public class MappingReader extends ConfigReaderBase{
     public MappingReader() throws IOException {
         this.setFileName("mapping.json");
         this.setFileContents();
-        mappingConfig = this.getJsonConfig();
-        peopleConfig = mappingConfig.getJSONObject("people");
+        JSONObject mappingConfig = this.getJsonConfig();
+        JSONObject peopleConfig = mappingConfig.getJSONObject( "people" );
     }
 
-    public String getRawConfig(){
+    private String getRawConfig(){
         return this.getFileContents();
     }
 
-    public String getServiceURI() {
+    private String getServiceURI() {
         return new JSONObject(this.getRawConfig()).getString("service_URI");
     }
 
-    public JSONObject getConfig(Resources resource){
+    private JSONObject getConfig(Resources resource){
         return new JSONObject(this.getRawConfig()).getJSONObject(resource.resourceName);
     }
 
-    public String getResource(Resources resource){
+    private String getResource(Resources resource){
         return this.getConfig(resource).getString("resource");
     }
 

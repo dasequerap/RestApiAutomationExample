@@ -1,9 +1,9 @@
 package views;
 
-import helpers.StarWarsApiURIs;
 import io.restassured.response.ValidatableResponse;
+import helpers.config.MappingReader;
+import java.io.IOException;
 import static io.restassured.RestAssured.given;
-import static io.restassured.RestAssured.get;
 
 public class PeopleView {
 
@@ -13,23 +13,20 @@ public class PeopleView {
     private int _currentPage = 1;
     private ValidatableResponse _apiResponse;
 
-    public PeopleView() {
-        _peopleURI = new StarWarsApiURIs().peopleURI;
-    }
-
-    public int getCurrentPage() {
-        return _currentPage;
+    public PeopleView() throws IOException {
+        MappingReader _peopleMapping = new MappingReader();
+        _peopleURI = _peopleMapping.getFullResourceURI(MappingReader.Resources.PEOPLE);
     }
 
     private void setCurrentPage(int nextPage) {
         _currentPage = nextPage;
     }
 
-    public String getNextUrl() {
+    private String getNextUrl() {
         return _nextUrl;
     }
 
-    public String getPreviousUrl() {
+    private String getPreviousUrl() {
         return _previousUrl;
     }
 
@@ -43,7 +40,6 @@ public class PeopleView {
                 .then();
         _nextUrl = _apiResponse.extract().path("next");
         _previousUrl = _apiResponse.extract().path("previous");
-        _peopleURI = new StarWarsApiURIs().peopleURI;
         return _apiResponse;
     }
 

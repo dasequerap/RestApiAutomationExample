@@ -1,20 +1,8 @@
-import java.io.IOException;
-import java.io.InputStream;
-import helpers.config.MappingReader;
-import org.springframework.web.bind.annotation.RequestMethod;
 
-public class ApiTestSample {
+class ApiTestSample {
 
-    public static void main(String[] args) throws IOException {
-
-        MappingReader configReader = new MappingReader();
-        System.out.println(configReader.getRawConfig());
-        System.out.println(configReader.getServiceURI());
-        System.out.println(configReader.getResource(MappingReader.Resources.PEOPLE));
-        System.out.println(configReader.getConfig(MappingReader.Resources.PEOPLE));
-        System.out.println(configReader.getQueryParametersByMethod(MappingReader.Resources.PEOPLE, RequestMethod.GET));
-        System.out.println(configReader.getRequestQueryParameters(MappingReader.Resources.PEOPLE, RequestMethod.GET));
-        System.out.println(configReader.getFullResourceURI(MappingReader.Resources.PEOPLE));
+    public static void main(String[] args) {
+        System.out.println("filler");
         /*PeopleView peopleURI = new PeopleView();
         String nextURL;
         JsonPath currentResponse;
