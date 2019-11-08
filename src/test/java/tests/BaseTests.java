@@ -7,56 +7,60 @@ import java.util.*;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.*;
 
-public class BaseTests {
+class BaseTests {
 
     private ValidatableResponse response;
 
-    protected BaseTests() { }
+    BaseTests() { }
 
-    protected void setCurrentResponse(ValidatableResponse response){
+    void setCurrentResponse(ValidatableResponse response){
         this.response = response;
     }
 
-    protected ValidatableResponse getCurrentResponse(){  return this.response; }
+    ValidatableResponse getCurrentResponse(){  return this.response; }
 
-    protected void validateResponseStatus(int currentStatusCode) {
+    private void validateResponseStatus(int currentStatusCode) {
         this.getCurrentResponse().log().all().assertThat()
                 .statusCode(currentStatusCode);
-    };
+    }
 
-    protected void validateContentType(ContentType contentType){
+    private void validateContentType(ContentType contentType){
         this.getCurrentResponse().assertThat().contentType(contentType);
     }
 
-    protected void validateResponseStatusOK(){
+    void validateResponseStatusOK(){
         this.validateResponseStatus(HttpStatus.SC_OK);
     }
 
-    protected void validateContentTypeIsJson() { this.validateContentType(ContentType.JSON); }
+    void validateResponseStatusIsMethodNotAllowed() { this.validateResponseStatus(HttpStatus.SC_METHOD_NOT_ALLOWED); }
 
-    protected void validateFieldIsPresent(String fieldName){
+    void validateResponseStatusIsForbidden() { this.validateResponseStatus(HttpStatus.SC_FORBIDDEN); }
+
+    void validateContentTypeIsJson() { this.validateContentType(ContentType.JSON); }
+
+    void validateFieldIsPresent(String fieldName){
         this.getCurrentResponse().assertThat().body("$", hasKey(fieldName));
     }
 
-    protected void validateFieldHasValue(String fieldName, String fieldValue){
+    void validateFieldHasValue(String fieldName, String fieldValue){
         this.getCurrentResponse().body(fieldName, equalTo(fieldValue));
     }
 
-    protected void validateFieldHasNotValue(String fieldName, String fieldValue){
+    void validateFieldHasNotValue(String fieldName, String fieldValue){
         this.getCurrentResponse().body(fieldName, not(fieldValue));
     }
 
-    protected void validateIntegerFieldIsGreaterThan(String fieldName, int fieldValue){
+    void validateIntegerFieldIsGreaterThan(String fieldName, int fieldValue){
         this.getCurrentResponse().body(fieldName, greaterThan(fieldValue));
     }
 
-    protected void validateObjectArrayHasSize(String fieldName, int Size){
+    void validateObjectArrayHasSize(String fieldName, int Size){
         this.getCurrentResponse().assertThat().body(fieldName, hasSize(Size));
     }
 
-    protected void validateObjectsInArrayHasFields(String peopleEntry, ArrayList<String> fieldList){
-        for(int fieldIndex = 0; fieldIndex < fieldList.size(); fieldIndex++) {
-            assertThat(peopleEntry, containsString(fieldList.get(fieldIndex)));
+    void validateObjectsInArrayHasFields(String peopleEntry, ArrayList<String> fieldList){
+        for(String field : fieldList){
+            assertThat(peopleEntry, containsString(field));
         }
     }
 

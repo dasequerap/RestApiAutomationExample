@@ -1,3 +1,31 @@
 {
-  "name": "John"
+  "service_URI":"https://swapi.co/api",
+  "people":{
+    "resource":"/people/",
+    "get_parameters":{
+      "method":"GET",
+      "expected_response_code" : 200,
+      "query_parameters":[
+          "page"
+      ],
+      "fields":{
+        "name":{
+          "position":1,
+          "type":"string",
+          "mandatory":true
+        },
+        "height":{
+          "position":2,
+          "type":"string",
+          "mandatory":false
+        },
+        "films":{
+          "position":10,
+          "type":"array",
+          "array_type":"string",
+          "mandatory":true
+        }
+      }
+    }
+  }
 }
