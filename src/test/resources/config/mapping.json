@@ -4,6 +4,7 @@
     "resource":"/people/",
     "get_parameters":{
       "method":"GET",
+      "expected_response_code" : 200,
       "query_parameters":[
           "page"
       ],

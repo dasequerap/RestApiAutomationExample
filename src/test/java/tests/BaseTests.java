@@ -32,6 +32,10 @@ class BaseTests {
         this.validateResponseStatus(HttpStatus.SC_OK);
     }
 
+    void validateResponseStatusIsMethodNotAllowed() { this.validateResponseStatus(HttpStatus.SC_METHOD_NOT_ALLOWED); }
+
+    void validateResponseStatusIsForbidden() { this.validateResponseStatus(HttpStatus.SC_FORBIDDEN); }
+
     void validateContentTypeIsJson() { this.validateContentType(ContentType.JSON); }
 
     void validateFieldIsPresent(String fieldName){

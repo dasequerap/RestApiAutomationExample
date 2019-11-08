@@ -3,6 +3,7 @@ package helpers.config;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.IOException;
+import org.apache.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 public class MappingReader extends ConfigReaderBase{
@@ -38,6 +39,11 @@ public class MappingReader extends ConfigReaderBase{
 
     private String getResource(Resources resource){
         return this.getConfig(resource).getString("resource");
+    }
+
+    public String getExpectedResponseCode(Resources resource){
+        return this.getConfig(resource).getJSONObject("get_parameters")
+                .getString("expected_response_code");
     }
 
     public JSONArray getQueryParametersByMethod(Resources resource, RequestMethod method){
