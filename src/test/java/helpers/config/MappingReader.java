@@ -1,9 +1,12 @@
 package helpers.config;
 
+import io.restassured.http.Method;
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.IOException;
 import org.apache.http.HttpStatus;
+import org.springframework.http.HttpMethod;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 public class MappingReader extends ConfigReaderBase{
@@ -29,7 +32,7 @@ public class MappingReader extends ConfigReaderBase{
         return this.getFileContents();
     }
 
-    private String getServiceURI() {
+    public String getServiceURI() {
         return new JSONObject(this.getRawConfig()).getString("service_URI");
     }
 
@@ -37,33 +40,23 @@ public class MappingReader extends ConfigReaderBase{
         return new JSONObject(this.getRawConfig()).getJSONObject(resource.resourceName);
     }
 
-    private String getResource(Resources resource){
+    public String getResource(Resources resource){
         return this.getConfig(resource).getString("resource");
     }
 
-    public String getExpectedResponseCode(Resources resource){
-        return this.getConfig(resource).getJSONObject("get_parameters")
-                .getString("expected_response_code");
+    public int getExpectedResponseCode(Resources resource, HttpMethod method){
+        return this.getConfig(resource).getJSONObject(String.valueOf(method))
+                .getInt("expected_response_code");
     }
 
     public JSONArray getQueryParametersByMethod(Resources resource, RequestMethod method){
-        switch(method){
-            case GET:
-                return this.getConfig(resource).getJSONObject("get_parameters")
-                   .getJSONArray("query_parameters");
-            default:
-                return null;
-        }
+        return this.getConfig(resource).getJSONObject(String.valueOf(method))
+                .getJSONArray("query_parameters");
     }
 
     public JSONObject getRequestQueryParameters(Resources resource, RequestMethod method){
-        switch(method){
-            case GET:
-                return this.getConfig(resource).getJSONObject("get_parameters")
-                    .getJSONObject("fields");
-            default:
-                return null;
-        }
+        return this.getConfig(resource).getJSONObject(String.valueOf(method))
+                .getJSONObject("fields");
     }
 
     public String getFullResourceURI(Resources resource){

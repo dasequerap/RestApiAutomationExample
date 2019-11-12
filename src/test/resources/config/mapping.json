@@ -2,8 +2,7 @@
   "service_URI":"https://swapi.co/api",
   "people":{
     "resource":"/people/",
-    "get_parameters":{
-      "method":"GET",
+    "GET":{
       "expected_response_code" : 200,
       "query_parameters":[
           "page"
@@ -26,6 +25,15 @@
           "mandatory":true
         }
       }
+    },
+    "HEAD": {
+      "expected_response_code" : 200
+    },
+    "OPTIONS" : {
+      "expected_response_code" : 200
+    },
+    "POST" : {
+      "expected_response_code" : 405
     }
   }
 }
