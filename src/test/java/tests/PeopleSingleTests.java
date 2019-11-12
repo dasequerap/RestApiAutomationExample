@@ -24,7 +24,7 @@ class PeopleSingleTests extends BaseTests{
     @DisplayName("Check if response is successful for specifics people")
     void checkSpecificPeopleResponseOkTest() {
         this.setCurrentResponse(peopleView.getPeopleById(1));
-        this.validateResponseStatusOK();
+        this.validateResponseStatusByCode(200);
     }
 
     @Order(11)

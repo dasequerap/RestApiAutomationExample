@@ -34,7 +34,7 @@ class PeopleMultipleTests extends BaseTests{
     @Order(1)
     @DisplayName("Check if response is successful for all people")
     void checkPeopleResponseOkTest() {
-        this.validateResponseStatusOK();
+        this.validateResponseStatusByCode(200);
     }
 
     @Order(2)
@@ -166,7 +166,7 @@ class PeopleMultipleTests extends BaseTests{
         this.setRandomPage();
         this.setCurrentResponse(peopleView.getPeople(currentPage));
         this.setCurrentResponse(peopleView.goToNextURL());
-        this.validateResponseStatusOK();
+        this.validateResponseStatusByCode(200);
         this.validateContentTypeIsJson();
     }
 
@@ -177,7 +177,7 @@ class PeopleMultipleTests extends BaseTests{
         this.setRandomPage();
         this.setCurrentResponse(peopleView.getPeople(currentPage));
         this.setCurrentResponse(peopleView.goToPreviousURL());
-        this.validateResponseStatusOK();
+        this.validateResponseStatusByCode(200);
         this.validateContentTypeIsJson();
     }
 
