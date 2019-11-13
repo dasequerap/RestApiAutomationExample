@@ -1,11 +1,8 @@
 package helpers.config;
 
-import io.restassured.http.Method;
-import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.IOException;
-import org.apache.http.HttpStatus;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.bind.annotation.RequestMethod;
 

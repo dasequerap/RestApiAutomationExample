@@ -2,10 +2,8 @@ package views;
 
 import helpers.config.MappingReader;
 import java.io.IOException;
-
 import io.restassured.RestAssured;
 import io.restassured.response.ValidatableResponse;
-import static io.restassured.RestAssured.given;
 
 public class PeopleView extends BaseView{
 
