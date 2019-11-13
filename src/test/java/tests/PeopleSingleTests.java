@@ -1,22 +1,26 @@
 package tests;
 
+import helpers.config.MappingReader;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.springframework.web.bind.annotation.RequestMethod;
 import views.PeopleView;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 class PeopleSingleTests extends BaseTests{
 
     private final PeopleView peopleView = new PeopleView();
 
     PeopleSingleTests() throws IOException {
+        MappingReader mapping = new MappingReader();
+        MappingReader.Resources peopleResource = MappingReader
+                .Resources.PEOPLE;
         this.setCurrentResponse(peopleView.getPeople(1));
-        ArrayList<String> peopleResponseFields = new ArrayList<>(Arrays
-                .asList( "name", "height", "mass" ));
+        ArrayList<String> peopleSingleResponseFields = mapping
+                .getMandatoryFieldNames( peopleResource, RequestMethod.GET, true );
     }
 
     @Order(10)

@@ -15,20 +15,20 @@ import static org.hamcrest.MatcherAssert.*;
 class PeopleMultipleTests extends BaseTests{
 
     private final PeopleView peopleView = new PeopleView();
-    private ArrayList<String> peopleSingleResponseFields = new ArrayList<>();
-    private ArrayList<String> peopleMultipleResponseFields = new ArrayList<>();
-    private final MappingReader mapping = new MappingReader();
-    private final MappingReader.Resources peopleResource = MappingReader
-            .Resources.PEOPLE;
+    private final ArrayList<String> peopleSingleResponseFields;
+    private final ArrayList<String> peopleMultipleResponseFields;
     private final int pages = 6;
     private int currentPage = 1;
 
     PeopleMultipleTests() throws IOException {
         this.setCurrentResponse(peopleView.getPeople(1));
+        MappingReader mapping = new MappingReader();
+        MappingReader.Resources peopleResource = MappingReader
+                .Resources.PEOPLE;
         this.peopleSingleResponseFields = mapping
-                .getMandatoryFieldNames(peopleResource, RequestMethod.GET, true);
+                .getMandatoryFieldNames( peopleResource, RequestMethod.GET, true);
         this.peopleMultipleResponseFields = mapping
-                .getMandatoryFieldNames(peopleResource, RequestMethod.GET, false);
+                .getMandatoryFieldNames( peopleResource, RequestMethod.GET, false);
     }
 
     private void setCurrentPage(int page) { this.currentPage = page; }
