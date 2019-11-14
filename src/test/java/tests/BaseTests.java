@@ -72,5 +72,4 @@ class BaseTests {
             assertThat(peopleEntry, containsString(field));
         }
     }
-
 }

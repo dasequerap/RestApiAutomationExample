@@ -2,16 +2,15 @@ package tests;
 
 import helpers.config.MappingReader;
 import models.PeopleModel;
+import org.junit.jupiter.api.*;
 import views.PeopleView;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class PeopleSingleTests extends BaseTests{
 
     private final PeopleView peopleView = new PeopleView();
@@ -24,17 +23,16 @@ class PeopleSingleTests extends BaseTests{
 
     PeopleSingleTests() throws IOException {
         this.setCurrentResponse(peopleView.getPeopleById(peopleId));
-        this.people = (PeopleModel) this.getCurrentResponse().extract()
-                .jsonPath().getObject("$", PeopleModel.class);
+        /*this.people = (PeopleModel) this.getCurrentResponse().extract()
+                .jsonPath().getObject("$", PeopleModel.class);*/
         this.peopleSingleResponseFields = mappingReader
                 .getMandatoryFieldNames(this.peopleResource, RequestMethod.GET, true );
     }
 
     @Order(1)
     @Test
-    @DisplayName("Check if response is successful for specifics people")
+    @DisplayName("Check if response is successful for specific people")
     void checkSpecificPeopleResponseOkTest() {
-        this.setCurrentResponse(peopleView.getPeopleById(peopleId));
         this.validateResponseStatusByCode(
                 mappingReader.getExpectedResponseCode(this.peopleResource, HttpMethod.GET));
     }
@@ -43,7 +41,6 @@ class PeopleSingleTests extends BaseTests{
     @Test
     @DisplayName("Check if response format is JSON for specific people")
     void checkSpecificPeopleResponseFormat(){
-        this.setCurrentResponse(peopleView.getPeopleById(1));
         this.validateContentTypeIsJson();
     }
 
@@ -57,7 +54,7 @@ class PeopleSingleTests extends BaseTests{
     }
 
     @Test
-    @Order(3)
+    @Order(4)
     @DisplayName("Check if mandatory fields are not null or empty")
     void checkIfPeopleMandatoryFieldsAreNotNullOrEmpty(){
         for(String field: peopleSingleResponseFields){
