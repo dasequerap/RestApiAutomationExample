@@ -39,8 +39,6 @@ public class PeopleView extends BaseView{
         if (_currentPage > 1) {
             this.setCurrentPage(page);
         }
-        /*_apiResponse = given().queryParam("page", page).when().get( _currentURI )
-                .then();*/
         _apiResponse = this.getRequest().queryParam("page", page).when()
                 .get( _currentURI ).then();
         _nextUrl = _apiResponse.extract().path("next");
