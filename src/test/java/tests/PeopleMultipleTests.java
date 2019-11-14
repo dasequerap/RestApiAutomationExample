@@ -2,9 +2,9 @@ package tests;
 
 import helpers.config.MappingReader;
 import models.PeopleModel;
+import views.PeopleView;
 import org.junit.jupiter.api.*;
 import org.springframework.web.bind.annotation.RequestMethod;
-import views.PeopleView;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,9 +39,8 @@ class PeopleMultipleTests extends BaseTests{
 
     @Order(1)
     @Test
-    @DisplayName("Check if response boy has mandatory fields")
+    @DisplayName("Check if response body has mandatory fields")
     void checkMandatoryFieldsForAllPeopleResponse() {
-
         for(String field: this.peopleMultipleResponseFields){
             this.validateFieldIsPresent(field);
         }
@@ -73,7 +72,7 @@ class PeopleMultipleTests extends BaseTests{
     @Test
     @DisplayName("Check if people objects in \"results\" field has mandatory fields")
     void checkIfPeopleEntryInResultsHasMandatoryFields(){
-        this.validateObjectsInArrayHasFields(this.peopleView.getResults(), peopleSingleResponseFields );
+        this.validateObjectsInArrayHasFields(this.peopleView.getResults(), peopleSingleResponseFields);
     }
 
     @Order(6)
