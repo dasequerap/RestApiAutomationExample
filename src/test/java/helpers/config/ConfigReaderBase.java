@@ -11,11 +11,11 @@ class ConfigReaderBase {
 
     private String fileName;
     private String fileContents;
-    private final String configDirectory = "./config/";
 
     private InputStream getFile(String fileName){
+        String configDirectory = "./config/";
         return getClass().getClassLoader()
-                .getResourceAsStream(configDirectory + fileName);
+                .getResourceAsStream( configDirectory + fileName);
     }
 
     String getFileContents() { return this.fileContents; }
