@@ -13,16 +13,16 @@ import java.util.ArrayList;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class PeopleSingleTests extends BaseTests{
 
-    private final PeopleView peopleView = new PeopleView();
-    private final int peopleId = 1;
     private final MappingReader mappingReader = new MappingReader();
     private final MappingReader.Resources peopleResource = MappingReader
             .Resources.PEOPLE;
-    private ArrayList<String> peopleSingleResponseFields = new ArrayList<>();
+    private ArrayList<String> peopleSingleResponseFields;
     private PeopleModel people = null;
 
     PeopleSingleTests() throws IOException {
-        this.setCurrentResponse(peopleView.getPeopleById(peopleId));
+        int peopleId = 1;
+        PeopleView peopleView = new PeopleView();
+        this.setCurrentResponse( peopleView.getPeopleById( peopleId ));
         /*this.people = (PeopleModel) this.getCurrentResponse().extract()
                 .jsonPath().getObject("$", PeopleModel.class);*/
         this.peopleSingleResponseFields = mappingReader
