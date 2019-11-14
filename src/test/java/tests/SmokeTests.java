@@ -13,7 +13,6 @@ class SmokeTests extends BaseTests {
 
     SmokeTests() throws IOException {
         mappingReader = new MappingReader();
-
     }
 
     @Test
@@ -22,7 +21,7 @@ class SmokeTests extends BaseTests {
     void getPeopleTest() {
         this.setCurrentResponse( peopleView.getPeople( 1 ) );
         this.validateResponseStatusByCode(
-                mappingReader.getExpectedResponseCode( MappingReader.Resources.PEOPLE, HttpMethod.GET ) );
+                mappingReader.getExpectedResponseCode(MappingReader.Resources.PEOPLE, HttpMethod.GET));
         this.validateContentTypeIsJson();
     }
 
@@ -41,7 +40,7 @@ class SmokeTests extends BaseTests {
     void getPeopleResponseWithOptionsMethodTest() {
         this.setCurrentResponse( peopleView.getOptions() );
         this.validateResponseStatusByCode(
-                mappingReader.getExpectedResponseCode( MappingReader.Resources.PEOPLE, HttpMethod.OPTIONS ) );
+                mappingReader.getExpectedResponseCode(MappingReader.Resources.PEOPLE, HttpMethod.OPTIONS));
         this.validateContentTypeIsJson();
     }
 
@@ -51,7 +50,7 @@ class SmokeTests extends BaseTests {
     void getPeopleResponseWithPostMethodTest() {
         this.setCurrentResponse(peopleView.post());
         this.validateResponseStatusByCode(
-                mappingReader.getExpectedResponseCode( MappingReader.Resources.PEOPLE, HttpMethod.POST));
+                mappingReader.getExpectedResponseCode(MappingReader.Resources.PEOPLE, HttpMethod.POST));
         this.validateContentTypeIsJson();
     }
 }
