@@ -1,15 +1,16 @@
 package helpers.config;
 
+import helpers.ResourceReader;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
-
 import org.springframework.http.HttpMethod;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-public class MappingReader extends ConfigReaderBase{
+public class MappingReader {
+    private ResourceReader _configReader;
 
     public enum Resources {
         PEOPLE("people"),
@@ -22,14 +23,14 @@ public class MappingReader extends ConfigReaderBase{
     }
 
     public MappingReader() throws IOException {
-        this.setFileName("mapping.json");
-        this.setFileContents();
-        JSONObject mappingConfig = this.getJsonConfig();
-        JSONObject peopleConfig = mappingConfig.getJSONObject( "people" );
+        String _mappingFile = "mapping.json";
+        _configReader = new ResourceReader( _mappingFile, ResourceReader.ProjectResource.CONFIG);
+        JSONObject mappingConfig = _configReader.getJsonConfig();
+        JSONObject peopleConfig = mappingConfig.getJSONObject("people");
     }
 
     private String getRawConfig(){
-        return this.getFileContents();
+        return _configReader.getFileContents();
     }
 
     public String getServiceURI() {
@@ -58,7 +59,7 @@ public class MappingReader extends ConfigReaderBase{
                 .getJSONArray("query_parameters");
     }
 
-    public JSONObject getRequestQueryParameters(Resources resource, RequestMethod method, boolean isSingle){
+    private JSONObject getRequestQueryParameters(Resources resource, RequestMethod method, boolean isSingle){
         String fieldType = (isSingle) ? "fields_single_result" : "fields_multiple_results";
         return this.getConfig(resource).getJSONObject(String.valueOf(method))
                 .getJSONObject(fieldType);
@@ -68,7 +69,7 @@ public class MappingReader extends ConfigReaderBase{
         return this.getRequestQueryParameters(resource, method, isSingle).getJSONObject(fieldName);
     }
 
-    public ArrayList<JSONObject> getMandatoryFieldsByMethod(Resources resource, RequestMethod method, boolean isSingle){
+    private ArrayList<JSONObject> getMandatoryFieldsByMethod(Resources resource, RequestMethod method, boolean isSingle){
         JSONObject requestFields = this.getRequestQueryParameters(resource, method, isSingle);
         ArrayList<JSONObject> mandatoryFields = new ArrayList<>();
 
