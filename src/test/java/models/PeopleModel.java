@@ -1,14 +1,20 @@
 package models;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import net.sf.jsefa.csv.annotation.CsvDataType;
+import net.sf.jsefa.csv.annotation.CsvField;
+
 import java.net.URL;
 
+@CsvDataType
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PeopleModel {
 
+    @CsvField(pos = 1)
     private String _name;
+    @CsvField(pos = 2)
     private String _height;
+    @CsvField(pos = 3)
     private String _mass;
     @JsonProperty("hair_color")
     private String _hairColor;

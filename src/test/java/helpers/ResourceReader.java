@@ -7,13 +7,29 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
-class ConfigReaderBase {
+class ResourceReader {
 
     private String fileName;
     private String fileContents;
 
+    public enum ProjectResource {
+        CONFIG("./config/"),
+        TEST_DATA("./test_data/");
+        final String resourceName;
+
+        ProjectResource(String resourceName) {
+            this.resourceName = resourceName;
+        }
+    }
+
     private InputStream getFile(String fileName){
         String configDirectory = "./config/";
+        return getClass().getClassLoader()
+                .getResourceAsStream( configDirectory + fileName);
+    }
+
+    private InputStream getFile(String fileName, ProjectResource resource){
+        String configDirectory = resource.resourceName;
         return getClass().getClassLoader()
                 .getResourceAsStream( configDirectory + fileName);
     }
