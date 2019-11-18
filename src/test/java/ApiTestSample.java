@@ -3,9 +3,9 @@ import models.ModelLoader;
 
 class ApiTestSample {
     public static void main(String[] args) throws IOException {
-        ModelLoader modelLoader = new ModelLoader();
+        /*ModelLoader modelLoader = new ModelLoader();
         modelLoader.getTestPeople();
-        /*PeopleView peopleURI = new PeopleView();
+        PeopleView peopleURI = new PeopleView();
         String nextURL;
         JsonPath currentResponse;
         List<PeopleModel> peopleObjects;
