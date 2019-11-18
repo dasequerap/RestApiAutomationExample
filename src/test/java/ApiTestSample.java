@@ -1,8 +1,10 @@
+import java.io.IOException;
+import models.ModelLoader;
 
 class ApiTestSample {
-
-    public static void main(String[] args) {
-        System.out.println("filler");
+    public static void main(String[] args) throws IOException {
+        ModelLoader modelLoader = new ModelLoader();
+        modelLoader.getTestPeople();
         /*PeopleView peopleURI = new PeopleView();
         String nextURL;
         JsonPath currentResponse;
