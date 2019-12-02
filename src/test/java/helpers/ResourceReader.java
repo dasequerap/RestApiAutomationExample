@@ -10,6 +10,7 @@ public class ResourceReader {
     private String fileName;
     private String fileContents;
     private ProjectResource projectResource;
+    private String configDirectory;
 
     public enum ProjectResource {
         CONFIG("./config/"),
@@ -21,7 +22,9 @@ public class ResourceReader {
         }
     }
 
-    public ResourceReader(){}
+    public ResourceReader(){
+        String configDirectory = "./config/";
+    }
 
     public ResourceReader(String filename, ProjectResource resource) throws IOException {
         this.projectResource = resource;
@@ -30,12 +33,11 @@ public class ResourceReader {
     }
 
     private InputStream getFile(String fileName){
-        String configDirectory = "./config/";
         return getClass().getClassLoader()
                 .getResourceAsStream( configDirectory + fileName);
     }
 
-    private InputStream getFile(String fileName, ProjectResource resource){
+    public InputStream getFile(String fileName, ProjectResource resource){
         String configDirectory = this.projectResource.resourceName;
         return getClass().getClassLoader()
                 .getResourceAsStream( configDirectory + fileName);
