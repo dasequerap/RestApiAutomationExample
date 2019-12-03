@@ -2,27 +2,32 @@ package tests;
 
 import helpers.config.MappingReader;
 import models.PeopleModel;
-import org.junit.jupiter.api.*;
+import models.ModelLoader;
 import views.PeopleView;
+import org.junit.jupiter.api.*;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import java.io.IOException;
 import java.util.ArrayList;
+import org.junit.Assert;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.Matchers.samePropertyValuesAs;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class PeopleSingleTests extends BaseTests{
 
-    private final PeopleView peopleView = new PeopleView();
-    private final int peopleId = 1;
     private final MappingReader mappingReader = new MappingReader();
     private final MappingReader.Resources peopleResource = MappingReader
             .Resources.PEOPLE;
-    private ArrayList<String> peopleSingleResponseFields = new ArrayList<>();
-    private PeopleModel people = null;
+    private ArrayList<String> peopleSingleResponseFields;
+    private PeopleModel specificPeople = null;
+    private int testSpecificPeopleId = 0;
 
     PeopleSingleTests() throws IOException {
-        this.setCurrentResponse(peopleView.getPeopleById(peopleId));
+        int peopleId = 1;
+        PeopleView peopleView = new PeopleView();
+        this.setCurrentResponse( peopleView.getPeopleById( peopleId ));
         /*this.people = (PeopleModel) this.getCurrentResponse().extract()
                 .jsonPath().getObject("$", PeopleModel.class);*/
         this.peopleSingleResponseFields = mappingReader
@@ -61,4 +66,16 @@ class PeopleSingleTests extends BaseTests{
             this.validateFieldHasNotValue(field, null);
         }
     }
+
+    @Test
+    @Order(5)
+    @DisplayName("Compare test data against service query")
+    void comparePeopleTestDataAgainstRestQuery() throws IOException {
+        ModelLoader testDataLoader = new ModelLoader();
+        PeopleModel testDataPeople = testDataLoader.getTestPeople().get(0);
+        specificPeople = this.getCurrentResponse().extract().jsonPath()
+                .getObject("$", PeopleModel.class);
+        assertThat(testDataPeople, samePropertyValuesAs(specificPeople));
+    }
+
 }

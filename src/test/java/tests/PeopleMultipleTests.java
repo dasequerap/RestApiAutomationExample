@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import static org.hamcrest.Matchers.*;
-import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.CoreMatchers.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class PeopleMultipleTests extends BaseTests{
