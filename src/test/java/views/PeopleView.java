@@ -1,21 +1,24 @@
 package views;
 
-import io.restassured.response.ValidatableResponse;
 import helpers.config.MappingReader;
 import java.io.IOException;
-import static io.restassured.RestAssured.given;
+import io.restassured.RestAssured;
+import io.restassured.response.ValidatableResponse;
 
-public class PeopleView {
+public class PeopleView extends BaseView{
 
     private String _nextUrl = null;
     private String _previousUrl = null;
-    private String _peopleURI;
     private int _currentPage = 1;
-    private ValidatableResponse _apiResponse;
 
     public PeopleView() throws IOException {
         MappingReader _peopleMapping = new MappingReader();
-        _peopleURI = _peopleMapping.getFullResourceURI(MappingReader.Resources.PEOPLE);
+        _currentURI = _peopleMapping.getFullResourceURI(MappingReader.Resources.PEOPLE);
+        this.setBaseURI(_peopleMapping.getServiceURI());
+        this.setResource(_peopleMapping.getResource(MappingReader.Resources.PEOPLE));
+        RestAssured.baseURI = this.getBaseURI();
+        this.setRequest(RestAssured.given());
+        //_request = RestAssured.given();
     }
 
     private void setCurrentPage(int nextPage) {
@@ -36,25 +39,25 @@ public class PeopleView {
         if (_currentPage > 1) {
             this.setCurrentPage(page);
         }
-        _apiResponse = given().queryParam("page", page).when().get(_peopleURI)
-                .then();
+        _apiResponse = this.getRequest().queryParam("page", page).when()
+                .get( _currentURI ).then();
         _nextUrl = _apiResponse.extract().path("next");
         _previousUrl = _apiResponse.extract().path("previous");
         return _apiResponse;
     }
 
     public ValidatableResponse getPeopleById(int peopleId) {
-        return given().log().everything().when()
-                .get(_peopleURI + "{peopleId}", peopleId).then().log().everything();
+        return this.getRequest().log().everything().when()
+                .get( _currentURI + "{peopleId}", peopleId).then().log().everything();
     }
 
     public ValidatableResponse goToNextURL(){
-        _apiResponse = given().when().get(this.getNextUrl()).then();
+        _apiResponse = this.getRequest().when().get(this.getNextUrl()).then();
         return _apiResponse;
     }
 
     public ValidatableResponse goToPreviousURL(){
-        _apiResponse = given().when().get(this.getPreviousUrl()).then();
+        _apiResponse = this.getRequest().when().get(this.getPreviousUrl()).then();
         return _apiResponse;
     }
 

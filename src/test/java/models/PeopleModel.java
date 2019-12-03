@@ -1,32 +1,32 @@
 package models;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.net.URL;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonPropertyOrder({"name","height","mass","hair_color","skin_color","eye_color","birth_year","gender","homeworld","films","species","vehicles","starships","created","edited","url"})
 public class PeopleModel {
 
     private String _name;
     private String _height;
     private String _mass;
     @JsonProperty("hair_color")
-    private String _hairColor;
+    private String _hair_color;
     @JsonProperty("skin_color")
-    private String _skinColor;
+    private String _skin_color;
     @JsonProperty("eye_color")
-    private String _eyeColor;
+    private String _eye_color;
     @JsonProperty("birth_year")
-    private String _birthYear;
+    private String _birth_year;
     private String _gender;
-    private URL _homeworld;
-    private URL[] _films;
-    private URL[] _species;
-    private URL[] _vehicles;
-    private URL[] _starships;
+    private String _homeworld;
+    private String[] _films;
+    private String[] _species;
+    private String[] _vehicles;
+    private String[] _starships;
     private String _created;
     private String _edited;
-    private URL _url;
+    private String _url;
 
     public PeopleModel() {
     }
@@ -56,35 +56,35 @@ public class PeopleModel {
     }
 
     public String getHairColor() {
-        return _hairColor;
+        return _hair_color;
     }
 
     public void setHairColor(String hairColor) {
-        _hairColor = hairColor;
+        _hair_color = hairColor;
     }
 
     public String getSkinColor() {
-        return _skinColor;
+        return _skin_color;
     }
 
     public void setSkinColor(String skinColor) {
-        _skinColor = skinColor;
+        _skin_color = skinColor;
     }
 
     public String getEyeColor() {
-        return _eyeColor;
+        return _eye_color;
     }
 
     public void setEyeColor(String eyeColor) {
-        _eyeColor = eyeColor;
+        _eye_color = eyeColor;
     }
 
     public String getBirthYear() {
-        return _birthYear;
+        return _birth_year;
     }
 
     public void setBirthYear(String birthYear) {
-        _birthYear = birthYear;
+        _birth_year = birthYear;
     }
 
     public String getGender() {
@@ -95,43 +95,43 @@ public class PeopleModel {
         _gender = gender;
     }
 
-    public URL getHomeworld() {
+    public String getHomeworld() {
         return _homeworld;
     }
 
-    public void setHomeworld(URL homeworld) {
+    public void setHomeworld(String homeworld) {
         _homeworld = homeworld;
     }
 
-    public URL[] getFilms() {
+    public String[] getFilms() {
         return _films;
     }
 
-    public void setFilms(URL[] films) {
+    public void setFilms(String[] films) {
         _films = films;
     }
 
-    public URL[] getSpecies() {
+    public String[] getSpecies() {
         return _species;
     }
 
-    public void setSpecies(URL[] species) {
+    public void setSpecies(String[] species) {
         _species = species;
     }
 
-    public URL[] getVehicles() {
+    public String[] getVehicles() {
         return _vehicles;
     }
 
-    public void setVehicles(URL[] vehicles) {
+    public void setVehicles(String[] vehicles) {
         _vehicles = vehicles;
     }
 
-    public URL[] getStarships() {
+    public String[] getStarships() {
         return _starships;
     }
 
-    public void setStarships(URL[] starships) {
+    public void setStarships(String[] starships) {
         _starships = starships;
     }
 
@@ -151,11 +151,11 @@ public class PeopleModel {
         _edited = edited;
     }
 
-    public URL getUrl() {
+    public String getUrl() {
         return _url;
     }
 
-    public void setUrl(URL url) {
+    public void setUrl(String url) {
         _url = url;
     }
 

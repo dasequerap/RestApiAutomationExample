@@ -3,21 +3,22 @@ package tests;
 import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
 import org.apache.http.HttpStatus;
+
 import java.util.*;
+
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.*;
 
 class BaseTests {
 
     private ValidatableResponse response;
-
     BaseTests() { }
+
+    ValidatableResponse getCurrentResponse(){  return this.response; }
 
     void setCurrentResponse(ValidatableResponse response){
         this.response = response;
     }
-
-    ValidatableResponse getCurrentResponse(){  return this.response; }
 
     private void validateResponseStatus(int currentStatusCode) {
         this.getCurrentResponse().log().all().assertThat()
@@ -28,13 +29,21 @@ class BaseTests {
         this.getCurrentResponse().assertThat().contentType(contentType);
     }
 
-    void validateResponseStatusOK(){
-        this.validateResponseStatus(HttpStatus.SC_OK);
+    void validateResponseStatusByCode(int statusCode){
+        switch(statusCode){
+            case HttpStatus.SC_OK:
+                this.validateResponseStatus(HttpStatus.SC_OK);
+                break;
+            case HttpStatus.SC_METHOD_NOT_ALLOWED:
+                this.validateResponseStatus(HttpStatus.SC_METHOD_NOT_ALLOWED);
+                break;
+            case HttpStatus.SC_FORBIDDEN:
+                this.validateResponseStatus(HttpStatus.SC_FORBIDDEN);
+                break;
+            default:
+                break;
+        }
     }
-
-    void validateResponseStatusIsMethodNotAllowed() { this.validateResponseStatus(HttpStatus.SC_METHOD_NOT_ALLOWED); }
-
-    void validateResponseStatusIsForbidden() { this.validateResponseStatus(HttpStatus.SC_FORBIDDEN); }
 
     void validateContentTypeIsJson() { this.validateContentType(ContentType.JSON); }
 
@@ -63,6 +72,4 @@ class BaseTests {
             assertThat(peopleEntry, containsString(field));
         }
     }
-
 }
-
