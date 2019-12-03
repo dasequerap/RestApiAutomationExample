@@ -14,7 +14,7 @@ class BaseTests {
     private ValidatableResponse response;
     BaseTests() { }
 
-    private ValidatableResponse getCurrentResponse(){  return this.response; }
+    ValidatableResponse getCurrentResponse(){  return this.response; }
 
     void setCurrentResponse(ValidatableResponse response){
         this.response = response;
