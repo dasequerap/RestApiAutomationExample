@@ -20,21 +20,19 @@ public class ModelLoader{
         System.out.println( _fileContents );
     }
 
-    public void getTestPeople() throws IOException {
+    public ArrayList<PeopleModel> getTestPeople() throws IOException {
         CsvMapper mapper = new CsvMapper();
         CsvSchema schema = mapper.schemaFor(PeopleModel.class);
+        ArrayList<PeopleModel> testPeople = new ArrayList<>();
         schema = schema.withColumnSeparator(';').withUseHeader(true)
                 .withHeader().withArrayElementSeparator(",");
         ObjectReader reader = mapper.readerFor(PeopleModel.class).with(schema);
         MappingIterator<PeopleModel> iterator = reader.readValues(_file);
-        ArrayList<PeopleModel> testPeople = new ArrayList<>();
 
         while (iterator.hasNext()) {
             testPeople.add(iterator.next());
         }
 
-        for(PeopleModel people: testPeople){
-            System.out.println(people.getName());
-        }
+        return testPeople;
     }
 }
