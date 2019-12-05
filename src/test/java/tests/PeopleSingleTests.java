@@ -9,9 +9,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.web.bind.annotation.RequestMethod;
 import java.io.IOException;
 import java.util.ArrayList;
-import org.junit.Assert;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.Matchers.samePropertyValuesAs;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -21,8 +19,6 @@ class PeopleSingleTests extends BaseTests{
     private final MappingReader.Resources peopleResource = MappingReader
             .Resources.PEOPLE;
     private ArrayList<String> peopleSingleResponseFields;
-    private PeopleModel specificPeople = null;
-    private int testSpecificPeopleId = 0;
 
     PeopleSingleTests() throws IOException {
         int peopleId = 1;
@@ -72,9 +68,11 @@ class PeopleSingleTests extends BaseTests{
     @DisplayName("Compare test data against service query")
     void comparePeopleTestDataAgainstRestQuery() throws IOException {
         ModelLoader testDataLoader = new ModelLoader();
-        PeopleModel testDataPeople = testDataLoader.getTestPeople().get(0);
-        specificPeople = this.getCurrentResponse().extract().jsonPath()
-                .getObject("$", PeopleModel.class);
+        int testSpecificPeopleId = 0;
+        PeopleModel testDataPeople = testDataLoader.getTestPeople()
+                .get( testSpecificPeopleId );
+        PeopleModel specificPeople = this.getCurrentResponse().extract().jsonPath()
+                .getObject( "$", PeopleModel.class );
         assertThat(testDataPeople, samePropertyValuesAs(specificPeople));
     }
 

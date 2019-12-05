@@ -18,7 +18,6 @@ public class PeopleView extends BaseView{
         this.setResource(_peopleMapping.getResource(MappingReader.Resources.PEOPLE));
         RestAssured.baseURI = this.getBaseURI();
         this.setRequest(RestAssured.given());
-        //_request = RestAssured.given();
     }
 
     private void setCurrentPage(int nextPage) {

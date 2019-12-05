@@ -9,14 +9,13 @@ import helpers.ResourceReader;
 import java.io.*;
 
 public class ModelLoader{
-    private ResourceReader _peopleData;
     private InputStream _file;
 
     public ModelLoader() throws IOException {
         String _csvFile = "People.csv";
         ResourceReader _peopleData = new ResourceReader( _csvFile, ResourceReader.ProjectResource.TEST_DATA);
         String _fileContents = _peopleData.getFileContents();
-        _file = _peopleData.getFile( _csvFile, ResourceReader.ProjectResource.TEST_DATA);
+        _file = _peopleData.getSpecificResourceFile( _csvFile);
         System.out.println( _fileContents );
     }
 
@@ -32,7 +31,6 @@ public class ModelLoader{
         while (iterator.hasNext()) {
             testPeople.add(iterator.next());
         }
-
         return testPeople;
     }
 }

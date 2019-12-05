@@ -1,7 +1,7 @@
 package helpers.config;
 
 import helpers.ResourceReader;
-import org.json.JSONArray;
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,8 +25,6 @@ public class MappingReader {
     public MappingReader() throws IOException {
         String _mappingFile = "mapping.json";
         _configReader = new ResourceReader( _mappingFile, ResourceReader.ProjectResource.CONFIG);
-        JSONObject mappingConfig = _configReader.getJsonConfig();
-        JSONObject peopleConfig = mappingConfig.getJSONObject("people");
     }
 
     private String getRawConfig(){
@@ -37,7 +35,7 @@ public class MappingReader {
         return new JSONObject(this.getRawConfig()).getString("service_URI");
     }
 
-    private JSONObject getConfig(Resources resource){
+    private JSONObject getConfig(@NotNull Resources resource){
         return new JSONObject(this.getRawConfig()).getJSONObject(resource.resourceName);
     }
 
@@ -52,11 +50,6 @@ public class MappingReader {
     public int getExpectedResponseCode(Resources resource, HttpMethod method){
         return this.getConfig(resource).getJSONObject(String.valueOf(method))
                 .getInt("expected_response_code");
-    }
-
-    public JSONArray getQueryParametersByMethod(Resources resource, RequestMethod method){
-        return this.getConfig(resource).getJSONObject(String.valueOf(method))
-                .getJSONArray("query_parameters");
     }
 
     private JSONObject getRequestQueryParameters(Resources resource, RequestMethod method, boolean isSingle){
