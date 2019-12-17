@@ -7,10 +7,11 @@ import static io.restassured.RestAssured.given;
 public class BaseView {
 
     String _currentURI;
+    ValidatableResponse _apiResponse;
     private String _baseURI;
     private String _resource;
-    ValidatableResponse _apiResponse;
     private RequestSpecification _request;
+    private String _bodyRequest = "";
 
     BaseView() { }
 
@@ -35,7 +36,7 @@ public class BaseView {
     void setRequest(RequestSpecification request){ this._request = request; }
 
     public ValidatableResponse post() {
-        return _request.body("").post(this.getResource()).then().log().all();
+        return _request.body(_bodyRequest).post(this.getResource()).then().log().all();
     }
 
 }

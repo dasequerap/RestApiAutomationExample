@@ -15,13 +15,13 @@ public class PeopleView extends BaseView{
         MappingReader _peopleMapping = new MappingReader();
         _currentURI = _peopleMapping.getFullResourceURI(MappingReader.Resources.PEOPLE);
         this.setBaseURI(_peopleMapping.getServiceURI());
-        this.setResource(_peopleMapping.getResource(MappingReader.Resources.PEOPLE));
         RestAssured.baseURI = this.getBaseURI();
+        this.setResource(_peopleMapping.getResource(MappingReader.Resources.PEOPLE));
         this.setRequest(RestAssured.given());
     }
 
-    private void setCurrentPage(int nextPage) {
-        _currentPage = nextPage;
+    private void setCurrentPage(int currentPage) {
+        _currentPage = currentPage;
     }
 
     private String getNextUrl() {
