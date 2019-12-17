@@ -1,8 +1,9 @@
-package tests;
+package tests.people;
 
 import helpers.config.MappingReader;
 import models.PeopleModel;
 import models.ModelLoader;
+import tests.BaseTests;
 import views.PeopleView;
 import org.junit.jupiter.api.*;
 import org.springframework.http.HttpMethod;
@@ -13,7 +14,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.samePropertyValuesAs;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class PeopleSingleTests extends BaseTests{
+public class PeopleSingleTests extends BaseTests {
 
     private final MappingReader mappingReader = new MappingReader();
     private final MappingReader.Resources peopleResource = MappingReader

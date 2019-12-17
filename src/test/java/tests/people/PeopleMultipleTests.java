@@ -1,6 +1,7 @@
-package tests;
+package tests.people;
 
 import models.PeopleModel;
+import tests.BaseTests;
 import views.PeopleView;
 import helpers.config.MappingReader;
 import helpers.constants.Configurations.ServiceResources;
@@ -13,7 +14,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class PeopleMultipleTests extends BaseTests{
+public class PeopleMultipleTests extends BaseTests {
 
     private final PeopleView peopleView = new PeopleView();
     private final ArrayList<String> peopleSingleResponseFields;
@@ -21,7 +22,7 @@ class PeopleMultipleTests extends BaseTests{
     private final int pages = 6;
     private int currentPage = 1;
 
-    PeopleMultipleTests() throws IOException {
+    public PeopleMultipleTests() throws IOException {
         this.setCurrentResponse(peopleView.getPeople(1));
         MappingReader mapping = new MappingReader();
         MappingReader.Resources peopleResource = MappingReader
