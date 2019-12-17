@@ -7,11 +7,11 @@ import org.springframework.http.HttpMethod;
 import views.PeopleView;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class SmokeTests extends BaseTests {
+class PeopleSmokeTests extends BaseTests {
     private final PeopleView peopleView = new PeopleView();
     private final MappingReader mappingReader;
 
-    SmokeTests() throws IOException {
+    PeopleSmokeTests() throws IOException {
         mappingReader = new MappingReader();
     }
 

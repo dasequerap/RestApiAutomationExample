@@ -1,0 +1,10 @@
+{
+  "configuration_files" : {
+    "directory" : "./config/",
+    "services_mapping" : "mapping.json"
+  },
+  "test_data_files" : {
+    "directory" : "./test data/",
+    "people_data" : "People.csv"
+  }
+}

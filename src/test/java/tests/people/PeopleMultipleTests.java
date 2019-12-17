@@ -1,13 +1,14 @@
 package tests;
 
-import helpers.config.MappingReader;
 import models.PeopleModel;
 import views.PeopleView;
-import org.junit.jupiter.api.*;
-import org.springframework.web.bind.annotation.RequestMethod;
+import helpers.config.MappingReader;
+import helpers.constants.Configurations.ServiceResources;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import org.junit.jupiter.api.*;
+import org.springframework.web.bind.annotation.RequestMethod;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.*;
 
@@ -26,9 +27,9 @@ class PeopleMultipleTests extends BaseTests{
         MappingReader.Resources peopleResource = MappingReader
                 .Resources.PEOPLE;
         this.peopleSingleResponseFields = mapping
-                .getMandatoryFieldNames( peopleResource, RequestMethod.GET, true);
+                .getMandatoryFieldNames(peopleResource, RequestMethod.GET, true);
         this.peopleMultipleResponseFields = mapping
-                .getMandatoryFieldNames( peopleResource, RequestMethod.GET, false);
+                .getMandatoryFieldNames(peopleResource, RequestMethod.GET, false);
     }
 
     private void setCurrentPage(int page) { this.currentPage = page; }
