@@ -2,34 +2,30 @@ package views;
 
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
+
 import static io.restassured.RestAssured.given;
 
 public class BaseView {
 
-    String _currentURI;
     ValidatableResponse _apiResponse;
-    private String _baseURI;
+    String _URI;
     private String _resource;
     private RequestSpecification _request;
     private String _bodyRequest = "";
 
     BaseView() { }
 
-    String getBaseURI() { return this._baseURI; }
-
     private String getResource() { return this._resource; }
 
     RequestSpecification getRequest(){ return this._request; }
 
     public ValidatableResponse getHead(){
-        return given().head(_currentURI).then();
+        return given().head( _URI ).then();
     }
 
     public ValidatableResponse getOptions(){
-        return given().options(_currentURI).then();
+        return given().options( _URI ).then();
     }
-
-    void setBaseURI(String baseURI) { this._baseURI = baseURI; }
 
     void setResource(String resource) {this._resource = resource; }
 
