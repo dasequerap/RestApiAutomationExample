@@ -13,16 +13,14 @@ public class PeopleView extends BaseView{
 
     public PeopleView() throws IOException {
         MappingReader _peopleMapping = new MappingReader();
-        _currentURI = _peopleMapping.getFullResourceURI(MappingReader.Resources.PEOPLE);
-        this.setBaseURI(_peopleMapping.getServiceURI());
+        _URI = _peopleMapping.getFullResourceURI(MappingReader.Resources.PEOPLE);
+        RestAssured.baseURI = _URI;
         this.setResource(_peopleMapping.getResource(MappingReader.Resources.PEOPLE));
-        RestAssured.baseURI = this.getBaseURI();
         this.setRequest(RestAssured.given());
-        //_request = RestAssured.given();
     }
 
-    private void setCurrentPage(int nextPage) {
-        _currentPage = nextPage;
+    private void setCurrentPage(int currentPage) {
+        _currentPage = currentPage;
     }
 
     private String getNextUrl() {
@@ -40,7 +38,7 @@ public class PeopleView extends BaseView{
             this.setCurrentPage(page);
         }
         _apiResponse = this.getRequest().queryParam("page", page).when()
-                .get( _currentURI ).then();
+                .get( _URI ).then();
         _nextUrl = _apiResponse.extract().path("next");
         _previousUrl = _apiResponse.extract().path("previous");
         return _apiResponse;
@@ -48,7 +46,7 @@ public class PeopleView extends BaseView{
 
     public ValidatableResponse getPeopleById(int peopleId) {
         return this.getRequest().log().everything().when()
-                .get( _currentURI + "{peopleId}", peopleId).then().log().everything();
+                .get( _URI + "{peopleId}", peopleId).then().log().everything();
     }
 
     public ValidatableResponse goToNextURL(){
