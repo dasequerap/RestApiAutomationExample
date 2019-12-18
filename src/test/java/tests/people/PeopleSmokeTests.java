@@ -1,17 +1,18 @@
-package tests;
+package tests.people;
 
 import java.io.IOException;
-import org.junit.jupiter.api.*;
 import helpers.config.MappingReader;
-import org.springframework.http.HttpMethod;
+import tests.BaseTests;
 import views.PeopleView;
+import org.junit.jupiter.api.*;
+import org.springframework.http.HttpMethod;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class SmokeTests extends BaseTests {
+public class PeopleSmokeTests extends BaseTests {
     private final PeopleView peopleView = new PeopleView();
     private final MappingReader mappingReader;
 
-    SmokeTests() throws IOException {
+    PeopleSmokeTests() throws IOException {
         mappingReader = new MappingReader();
     }
 

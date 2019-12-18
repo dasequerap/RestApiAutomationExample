@@ -1,16 +1,22 @@
 package helpers.config;
 
-import helpers.ResourceReader;
-import org.json.JSONArray;
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.bind.annotation.RequestMethod;
+import helpers.constants.Configurations.ServiceResources;
+import helpers.constants.Configurations.CommonKeys;
+import helpers.config.ConfigurationReader;
+import helpers.ProjectFileReader;
 
 public class MappingReader {
     private ResourceReader _configReader;
+    private ConfigurationReader _configurationReader;
+    private ProjectFileReader _fileReader;
+    String _mappingFile = null;
 
     public enum Resources {
         PEOPLE("people"),
@@ -23,40 +29,20 @@ public class MappingReader {
     }
 
     public MappingReader() throws IOException {
-        String _mappingFile = "mapping.json";
-        _configReader = new ResourceReader( _mappingFile, ResourceReader.ProjectResource.CONFIG);
-        JSONObject mappingConfig = _configReader.getJsonConfig();
-        JSONObject peopleConfig = mappingConfig.getJSONObject("people");
+        _configurationReader = new ConfigurationReader();
+        //String _mappingFile = "mapping.json";
+        _mappingFile = _configurationReader.getKeysOfConfigurationFiles()
+            .getString(CommonKeys.SERVICES_MAPPING.toString());
+        _fileReader = new ProjectFileReader(_mappingFile, _configurationReader.getConfigurationFilesDirectory());
+        _configReader = new ResourceReader(_mappingFile, ResourceReader.ProjectResourceDirectory.CONFIG);
     }
 
     private String getRawConfig(){
         return _configReader.getFileContents();
     }
 
-    public String getServiceURI() {
-        return new JSONObject(this.getRawConfig()).getString("service_URI");
-    }
-
-    private JSONObject getConfig(Resources resource){
+    private JSONObject getConfig(@NotNull Resources resource){
         return new JSONObject(this.getRawConfig()).getJSONObject(resource.resourceName);
-    }
-
-    public String getResource(Resources resource){
-        return this.getConfig(resource).getString("resource");
-    }
-
-    public String getFullResourceURI(Resources resource){
-        return this.getServiceURI() + this.getResource(resource);
-    }
-
-    public int getExpectedResponseCode(Resources resource, HttpMethod method){
-        return this.getConfig(resource).getJSONObject(String.valueOf(method))
-                .getInt("expected_response_code");
-    }
-
-    public JSONArray getQueryParametersByMethod(Resources resource, RequestMethod method){
-        return this.getConfig(resource).getJSONObject(String.valueOf(method))
-                .getJSONArray("query_parameters");
     }
 
     private JSONObject getRequestQueryParameters(Resources resource, RequestMethod method, boolean isSingle){
@@ -81,6 +67,25 @@ public class MappingReader {
         return mandatoryFields;
     }
 
+    public String getResource(Resources resource){
+        return this.getConfig(resource).getString("resource");
+    }
+
+    public String getServiceURI() {
+        return new JSONObject(this.getRawConfig()).getString("service_URI");
+    }
+
+    //public String getServiceURI(){ return _configurationReader.getKeysOfConfigurationFiles().getString(); }
+
+    public String getFullResourceURI(Resources resource){
+        return this.getServiceURI() + this.getResource(resource);
+    }
+
+    public int getExpectedResponseCode(Resources resource, HttpMethod method){
+        return this.getConfig(resource).getJSONObject(String.valueOf(method))
+                .getInt("expected_response_code");
+    }
+
     public ArrayList<String> getMandatoryFieldNames(Resources resource, RequestMethod method, boolean isSingle){
         ArrayList<String> fieldNames = new ArrayList<>();
 
@@ -89,4 +94,9 @@ public class MappingReader {
         }
         return fieldNames;
     }
+
+
+
+
+
 }
