@@ -1,6 +1,7 @@
-package helpers;
+package helpers.config;
 
-import config.Configurations;
+import helpers.constants.Configurations;
+import helpers.ProjectFileReader;
 import org.json.JSONObject;
 import java.io.IOException;
 
@@ -19,24 +20,24 @@ public class ConfigurationReader {
     }
 
     public JSONObject getKeysOfConfigurationFiles() throws IOException {
-        return this.loadConfigurations().getJSONObject("configuration_files");
+        return this.loadConfigurations().getJSONObject(Configurations.CommonKeys.CONFIGURATION_FILES.toString());
     }
 
-    public String getConfigurationFilesDirectory() throws IOException {
-        return this.getKeysOfConfigurationFiles().getString("directory");
+    protected JSONObject getKeysForTestFiles() throws IOException {
+        return this.loadConfigurations().getJSONObject(Configurations.CommonKeys.TEST_DATA_FILES.toString());
     }
 
-    public String getMappingFileAddress() throws IOException {
-        return this.getKeysOfConfigurationFiles().getString("directory") +
-            this.getKeysOfConfigurationFiles().getString("services_mapping");
+    protected String getConfigurationFilesDirectory() throws IOException {
+        return this.getKeysOfConfigurationFiles().getString(Configurations.CommonKeys.DIRECTORY.toString());
     }
 
-    public JSONObject getKeysForTestFiles() throws IOException {
-        return this.loadConfigurations().getJSONObject("test_data_files");
+    protected String getMappingFileAddress() throws IOException {
+        return this.getConfigurationFilesDirectory() + this.getKeysOfConfigurationFiles().getString(
+                Configurations.CommonKeys.SERVICES_MAPPING.toString());
     }
 
-    public String getTestFilesDirectory() throws IOException  {
-        return this.getKeysForTestFiles().getString("directory");
+    protected String getTestFilesDirectory() throws IOException  {
+        return this.getKeysForTestFiles().getString(Configurations.CommonKeys.DIRECTORY.toString());
     }
 
 }

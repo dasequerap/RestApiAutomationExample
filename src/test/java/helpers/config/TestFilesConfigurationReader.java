@@ -1,26 +1,38 @@
 package helpers.config;
 
-import helpers.constants.Configurations.TestDataFiles;
-import helpers.config.ConfigurationReader;
-
+import helpers.constants.Configurations.ServiceResources;
 import java.io.IOException;
 
-public class TestFilesLoader {
+public class TestFilesConfigurationReader {
 
     ConfigurationReader configuration;
 
-    public TestFilesLoader() {
+    public TestFilesConfigurationReader() {
         configuration = new ConfigurationReader();
     }
 
-    public String getPeopleTestDataAddress() throws IOException {
-        return this.configuration.getTestFilesDirectory() + this.configuration.getKeysForTestFiles()
-            .getString(TestDataFiles.PEOPLE.toString());
+    public String getTestDataFileName(ServiceResources file) throws IOException {
+        switch(file){
+            case PEOPLE:
+                return this.configuration.getKeysForTestFiles().getString(ServiceResources.PEOPLE.toString());
+            case FILMS:
+                return this.configuration.getKeysForTestFiles().getString(ServiceResources.FILMS.toString());
+            default:
+                return null;
+        }
     }
 
-    public String getFilmsTestDataAddress() throws IOException {
-        return this.configuration.getTestFilesDirectory() + this.configuration.getKeysForTestFiles()
-                .getString(TestDataFiles.FILMS.toString());
+    public String getTestDataFileAddress(ServiceResources file) throws IOException {
+        switch(file){
+            case PEOPLE:
+                return this.configuration.getTestFilesDirectory() + this.configuration.getKeysForTestFiles()
+                        .getString( ServiceResources.PEOPLE.toString());
+            case FILMS:
+                return this.configuration.getTestFilesDirectory() + this.configuration.getKeysForTestFiles()
+                        .getString( ServiceResources.FILMS.toString());
+            default:
+                return null;
+        }
     }
 
 }

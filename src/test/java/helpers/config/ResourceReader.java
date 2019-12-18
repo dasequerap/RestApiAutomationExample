@@ -1,9 +1,8 @@
-package helpers;
+package helpers.config;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-
 import helpers.config.ConfigurationReader;
 import org.apache.commons.io.IOUtils;
 
