@@ -29,8 +29,8 @@ public class PeopleSmokeTests extends BaseTests {
     @Order(2)
     @Test
     @DisplayName("Check successful response from people resource with HEAD method")
-    void getPeopleResponseWithHeadMethodTest() {
-        this.setCurrentResponse( peopleView.getHead() );
+    void getPeopleResponseWithHeadMethodTest() throws IOException {
+        this.setCurrentResponse(peopleView.head());
         this.validateResponseStatusByCode(
                 mappingReader.getExpectedResponseCode( MappingReader.Resources.PEOPLE, HttpMethod.HEAD ) );
     }
@@ -38,8 +38,8 @@ public class PeopleSmokeTests extends BaseTests {
     @Order(3)
     @Test
     @DisplayName("Check successful response from people resource with OPTIONS method")
-    void getPeopleResponseWithOptionsMethodTest() {
-        this.setCurrentResponse( peopleView.getOptions() );
+    void getPeopleResponseWithOptionsMethodTest() throws IOException {
+        this.setCurrentResponse(peopleView.options());
         this.validateResponseStatusByCode(
                 mappingReader.getExpectedResponseCode(MappingReader.Resources.PEOPLE, HttpMethod.OPTIONS));
         this.validateContentTypeIsJson();
@@ -48,7 +48,7 @@ public class PeopleSmokeTests extends BaseTests {
     @Order(4)
     @Test
     @DisplayName("Check not allowed response from people resource with POST method")
-    void getPeopleResponseWithPostMethodTest() {
+    void getPeopleResponseWithPostMethodTest() throws IOException {
         this.setCurrentResponse(peopleView.post());
         this.validateResponseStatusByCode(
                 mappingReader.getExpectedResponseCode(MappingReader.Resources.PEOPLE, HttpMethod.POST));

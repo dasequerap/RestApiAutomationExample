@@ -7,12 +7,12 @@ import java.io.IOException;
 
 public class ConfigurationReader {
 
-    private final String configurationFile = "application.json";
-    private final String configurationDirectory = "./config/";
-    private ProjectFileReader projectFileReader = null;
+    private final ProjectFileReader projectFileReader;
 
     public ConfigurationReader(){
-        this.projectFileReader = new ProjectFileReader(this.configurationFile, this.configurationDirectory);
+        String configurationFile = "application.json";
+        String configurationDirectory = "./config/";
+        this.projectFileReader = new ProjectFileReader( configurationFile, configurationDirectory );
     }
 
     private JSONObject loadConfigurations() throws IOException {
@@ -33,7 +33,7 @@ public class ConfigurationReader {
 
     protected String getMappingFileAddress() throws IOException {
         return this.getConfigurationFilesDirectory() + this.getKeysOfConfigurationFiles().getString(
-                Configurations.CommonKeys.SERVICES_MAPPING.toString());
+                Configurations.CommonKeys.SERVICES_MAPPING_FILE.toString());
     }
 
     protected String getTestFilesDirectory() throws IOException  {

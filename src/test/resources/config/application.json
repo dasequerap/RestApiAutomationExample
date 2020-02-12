@@ -1,10 +1,12 @@
 {
   "CONFIGURATION_FILES" : {
     "DIRECTORY" : "./config/",
-    "SERVICES_MAPPING" : "mapping.json"
+    "SERVICES_MAPPING_FILE" : "mapping.json"
   },
   "TEST_DATA_FILES" : {
     "DIRECTORY" : "./test data/",
+    "CSV_COLUMN_SEPARATOR" : ";",
+    "CSV_ARRAY_SEPARATOR" : ",",
     "PEOPLE" : "People.csv",
     "FILMS" : "Films.csv",
     "PLANETS" : "Planets.csv"

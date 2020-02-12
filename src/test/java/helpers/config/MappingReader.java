@@ -7,16 +7,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.bind.annotation.RequestMethod;
-import helpers.constants.Configurations.ServiceResources;
 import helpers.constants.Configurations.CommonKeys;
-import helpers.config.ConfigurationReader;
 import helpers.ProjectFileReader;
 
 public class MappingReader {
     private ResourceReader _configReader;
-    private ConfigurationReader _configurationReader;
-    private ProjectFileReader _fileReader;
-    String _mappingFile = null;
+    String _mappingFile;
 
     public enum Resources {
         PEOPLE("people"),
@@ -29,11 +25,10 @@ public class MappingReader {
     }
 
     public MappingReader() throws IOException {
-        _configurationReader = new ConfigurationReader();
-        //String _mappingFile = "mapping.json";
+        ConfigurationReader _configurationReader = new ConfigurationReader();
         _mappingFile = _configurationReader.getKeysOfConfigurationFiles()
-            .getString(CommonKeys.SERVICES_MAPPING.toString());
-        _fileReader = new ProjectFileReader(_mappingFile, _configurationReader.getConfigurationFilesDirectory());
+            .getString(CommonKeys.SERVICES_MAPPING_FILE.toString());
+        ProjectFileReader _fileReader = new ProjectFileReader( _mappingFile, _configurationReader.getConfigurationFilesDirectory() );
         _configReader = new ResourceReader(_mappingFile, ResourceReader.ProjectResourceDirectory.CONFIG);
     }
 

@@ -12,29 +12,33 @@ import helpers.constants.Configurations.ServiceResources;
 
 public class ModelLoader{
     private InputStream _file;
-    private TestFilesConfigurationReader configurationReader;
 
     public ModelLoader() throws IOException {
-        configurationReader = new TestFilesConfigurationReader();
+        TestFilesConfigurationReader configurationReader = new TestFilesConfigurationReader();
         String _csvFile = configurationReader.getTestDataFileName(ServiceResources.PEOPLE);
-                ResourceReader _peopleData = new ResourceReader( _csvFile, ResourceReader.ProjectResourceDirectory.TEST_DATA);
+        ResourceReader _peopleData = new ResourceReader( _csvFile, ResourceReader.ProjectResourceDirectory.TEST_DATA);
         String _fileContents = _peopleData.getFileContents();
         _file = _peopleData.getSpecificResourceFile(_csvFile);
         System.out.println( _fileContents );
     }
 
-    public ArrayList<PeopleModel> getTestPeople() throws IOException {
+    private ArrayList<?> getCsvTestData(Class<?> pojoType) throws IOException {
         CsvMapper mapper = new CsvMapper();
-        CsvSchema schema = mapper.schemaFor(PeopleModel.class);
+        CsvSchema schema = mapper.schemaFor(pojoType);
+        ArrayList<Object> testData = new ArrayList<>();
+
         schema = schema.withColumnSeparator(';').withUseHeader(true)
                 .withHeader().withArrayElementSeparator(",");
-        ArrayList<PeopleModel> testPeople = new ArrayList<>();
-        ObjectReader reader = mapper.readerFor(PeopleModel.class).with(schema);
-        MappingIterator<PeopleModel> iterator = reader.readValues(_file);
+        ObjectReader reader = mapper.readerFor(pojoType).with(schema);
+        MappingIterator<Object> iterator = reader.readValues(_file);
 
         while (iterator.hasNext()) {
-            testPeople.add(iterator.next());
+            testData.add(iterator.next());
         }
-        return testPeople;
+        return testData;
+    }
+
+    public ArrayList<?> getTestPeople() throws IOException {
+        return this.getCsvTestData(PeopleModel.class);
     }
 }

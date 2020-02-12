@@ -8,8 +8,8 @@ import java.nio.charset.StandardCharsets;
 
 public class ProjectFileReader {
 
-    private String fileName;
-    private String directory;
+    private final String fileName;
+    private final String directory;
 
     public ProjectFileReader(String fileName, String directory) {
         this.fileName = fileName;
@@ -30,5 +30,9 @@ public class ProjectFileReader {
 
     public JSONObject returnFileContentsAsJson() throws IOException {
         return new JSONObject(this.getFileContents());
+    }
+
+    public String getJsonKeyValue(String key) throws IOException {
+        return this.returnFileContentsAsJson().getString(key);
     }
 }

@@ -5,31 +5,18 @@ import java.io.IOException;
 
 public class TestFilesConfigurationReader {
 
-    ConfigurationReader configuration;
+    private final ConfigurationReader _configuration;
 
     public TestFilesConfigurationReader() {
-        configuration = new ConfigurationReader();
+        _configuration = new ConfigurationReader();
     }
 
     public String getTestDataFileName(ServiceResources file) throws IOException {
         switch(file){
             case PEOPLE:
-                return this.configuration.getKeysForTestFiles().getString(ServiceResources.PEOPLE.toString());
+                return this._configuration.getKeysForTestFiles().getString(ServiceResources.PEOPLE.toString());
             case FILMS:
-                return this.configuration.getKeysForTestFiles().getString(ServiceResources.FILMS.toString());
-            default:
-                return null;
-        }
-    }
-
-    public String getTestDataFileAddress(ServiceResources file) throws IOException {
-        switch(file){
-            case PEOPLE:
-                return this.configuration.getTestFilesDirectory() + this.configuration.getKeysForTestFiles()
-                        .getString( ServiceResources.PEOPLE.toString());
-            case FILMS:
-                return this.configuration.getTestFilesDirectory() + this.configuration.getKeysForTestFiles()
-                        .getString( ServiceResources.FILMS.toString());
+                return this._configuration.getKeysForTestFiles().getString(ServiceResources.FILMS.toString());
             default:
                 return null;
         }

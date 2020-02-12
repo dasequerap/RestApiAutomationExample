@@ -24,9 +24,7 @@ public class PeopleSingleTests extends BaseTests {
     PeopleSingleTests() throws IOException {
         int peopleId = 1;
         PeopleView peopleView = new PeopleView();
-        this.setCurrentResponse( peopleView.getPeopleById( peopleId ));
-        /*this.people = (PeopleModel) this.getCurrentResponse().extract()
-                .jsonPath().getObject("$", PeopleModel.class);*/
+        this.setCurrentResponse(peopleView.getPeopleById(peopleId));
         this.peopleSingleResponseFields = mappingReader
                 .getMandatoryFieldNames(this.peopleResource, RequestMethod.GET, true );
     }
@@ -70,8 +68,8 @@ public class PeopleSingleTests extends BaseTests {
     void comparePeopleTestDataAgainstRestQuery() throws IOException {
         ModelLoader testDataLoader = new ModelLoader();
         int testSpecificPeopleId = 0;
-        PeopleModel testDataPeople = testDataLoader.getTestPeople()
-                .get( testSpecificPeopleId );
+        PeopleModel testDataPeople = (PeopleModel) testDataLoader.getTestPeople()
+                .get(testSpecificPeopleId);
         PeopleModel specificPeople = this.getCurrentResponse().extract().jsonPath()
                 .getObject( "$", PeopleModel.class );
         assertThat(testDataPeople, samePropertyValuesAs(specificPeople));

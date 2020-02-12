@@ -4,7 +4,7 @@ import models.PeopleModel;
 import tests.BaseTests;
 import views.PeopleView;
 import helpers.config.MappingReader;
-import helpers.constants.Configurations.ServiceResources;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
